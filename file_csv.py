@@ -2,11 +2,13 @@ from csv import DictReader
 
 
 def get_cred(dev_file_name):
-    result = {}
+    dictionary = {}
+    result = []
     with open(dev_file_name) as csvfile:
         reader = DictReader(csvfile)
         for row in reader:
-            result.update(row)
+            dictionary.update(row)
+            result.append(dictionary)
     return result
 
 

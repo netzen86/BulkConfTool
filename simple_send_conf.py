@@ -1,4 +1,4 @@
-from huawei import Huaweis
+from netmiko import ConnectHandler
 from file_csv import get_cred
 from concurrent.futures import ThreadPoolExecutor as Tpe
 from itertools import repeat
@@ -6,8 +6,8 @@ from itertools import repeat
 
 def conf_device(devices, commands):
     print(devices, commands)
-    with Huaweis(**get_cred(devices)) as net_connect:
-        res_cmd = net_connect.send_config_set(commands, ignore_errors=False)
+    with ConnectHandler(**devices) as net_connect:
+        res_cmd = net_connect.send_config_set(commands)
         print(res_cmd)
         write_memo = net_connect.save_config()
         print(write_memo)
@@ -28,4 +28,4 @@ if __name__ == "__main__":
         # 'local-user user363 password irreversible-cipher password',
         'commit'
         ]
-    run_parallel_session(['device.csv'], 'show_out_19.4.txt', config)
+    run_parallel_session(get_cred('device.csv'), 'show_out_19.4.txt', config)
