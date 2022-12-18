@@ -1,3 +1,4 @@
 device_type,ip,username,password,secret
 huawei,172.16.133.1,huawei,p@S$w0rd567,huawei
 huawei,172.16.133.13,huawei,P@s$w0rd890,huawei
+huawei,172.16.133.11,huawei,p@S$w0rd567,huawei
