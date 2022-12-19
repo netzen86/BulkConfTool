@@ -1,3 +1,6 @@
+'''
+Для примера дописания функций в Netmiko
+'''
 import re
 from netmiko.huawei.huawei import HuaweiVrpv8SSH, HuaweiBase
 import logging
