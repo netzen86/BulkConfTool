@@ -15,9 +15,9 @@ logging.basicConfig(
 
 
 def conf_device(devices, commands):
+    '''Function for send command on network device'''
     start_msg = '===> {} Connection: {}'
     received_msg = '<=== {} Received:   {}'
-    # msg = f"{devices} {commands}"
     logging.info(start_msg.format(datetime.now().time(), devices['ip']))
     with ConnectHandler(**devices) as net_connect:
         send_cmd = net_connect.send_config_set(
@@ -31,6 +31,7 @@ def conf_device(devices, commands):
 
 
 def run_parallel_session(devices, filename, commands, limit=3):
+    '''Function for run many connection to network devices'''
     with Tpe(max_workers=limit) as executor:
         result = executor.map(conf_device, devices, repeat(commands))
     with open(filename, "w") as f:
