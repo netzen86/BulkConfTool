@@ -1,4 +1,5 @@
 device_type,ip,username,password,secret
 huawei,172.16.133.1,huawei,p@S$w0rd567,huawei
+cisco_ios,172.16.133.15,cisco,cisco,cisco
 huawei,172.16.133.13,huawei,P@s$w0rd890,huawei
 huawei,172.16.133.11,huawei,p@S$w0rd567,huawei
