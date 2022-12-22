@@ -3,8 +3,11 @@ from concurrent.futures import ThreadPoolExecutor as Tpe
 from datetime import datetime
 from itertools import repeat
 
+import sys
+sys.path.append(('/home/netzen/Study/netmiko/'))
+
 from netmiko import (ConnectHandler, NetmikoAuthenticationException,
-                     NetmikoTimeoutException)
+                                NetmikoTimeoutException)
 
 from file_csv import get_cred
 
@@ -26,6 +29,8 @@ def conf_device(devices, commands):
             send_cmd = net_connect.send_config_set(
                 commands[devices["device_type"]]
             )
+            if devices['device_type'] == 'huawei_vrpv8':
+                net_connect.commit()
             save_conf = net_connect.save_config()
             logging.info(received_msg.format(
                 datetime.now().time(), devices["ip"])
@@ -47,11 +52,14 @@ def run_parallel_session(devices, filename, commands, limit=3):
 
 if __name__ == "__main__":
     config = {
-        "huawei": [
-            "info-center loghost 172.16.155.99 level informational",
-            "undo info-center loghost 172.16.155.88",
-            "commit",
+        'huawei': [
+            'info-center loghost 172.16.155.101 facility local6',
+            'undo info-center loghost 172.16.155.100',
         ],
-        "cisco_ios": ["no logging 172.16.144.55", "logging 172.16.144.66"],
+        'huawei_vrpv8': [
+            'info-center loghost 172.16.155.102 level informational',
+            'undo info-center loghost 172.16.155.100',
+        ],
+        'cisco_ios': ['no logging 172.16.144.66', 'logging 172.16.144.77'],
     }
     run_parallel_session(get_cred("device.csv"), "output_cmd.txt", config)
