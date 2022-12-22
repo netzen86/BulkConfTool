@@ -1,0 +1,64 @@
+******************** 172.16.133.1 ********************
+
+
+                   system-view
+Enter system view, return user view with return command.
+[~Router1]info-center loghost 172.16.155.102 level informational
+[~Router1]undo info-center loghost 172.16.155.100
+Error: Failed to close Logging Host.
+[~Router1]
+save
+Warning: The current configuration will be written to the device.
+Are you sure to continue? [Y/N]:y
+Now saving the current configuration to the slot 17 
+Info: Save the configuration successfully.
+<Router1>
+
+******************** 172.16.133.15 ********************
+
+
+                   configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+ciscorouter(config)#no logging 172.16.144.66
+Host 172.16.144.66 not found for logging
+ciscorouter(config)#logging 172.16.144.77
+ciscorouter(config)#end
+ciscorouter#
+write mem
+Building configuration...
+[OK]
+ciscorouter#
+
+******************** 172.16.133.13 ********************
+
+
+                   system-view
+Enter system view, return user view with return command.
+[~CE]info-center loghost 172.16.155.102 level informational
+[~CE]undo info-center loghost 172.16.155.100
+Error: Failed to close Logging Host.
+[~CE]
+save
+Warning: The current configuration will be written to the device. Continue? [Y/N]:y
+Now saving the current configuration to the slot 17 
+Info: Save the configuration successfully.
+<CE>
+
+******************** 172.16.133.11 ********************
+
+
+                   system-view
+Enter system view, return user view with Ctrl+Z.
+[Huawei]info-center loghost 172.16.155.101 facility local6
+[Huawei]undo info-center loghost 172.16.155.100
+Error: Failed to close Logging Host.
+[Huawei]return
+<Huawei>
+save
+ Warning: The current configuration will be written to the device. 
+ Are you sure to continue?[Y/N]:y
+  It will take several minutes to save configuration file, please wait............
+  Configuration file had been saved successfully
+  Note: The configuration file will take effect after being activated
+<Huawei>
+
