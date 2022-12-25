@@ -21,6 +21,7 @@ logging.basicConfig(
 
 def send_cmd(devices, commands, cmd_type):
     """Function for send command on network device"""
+    cmd_show = []
     start_msg = "===> {} Connection: {}"
     received_msg = "<=== {} Received:   {}"
     logging.info(start_msg.format(datetime.now().time(), devices["ip"]))
@@ -32,17 +33,16 @@ def send_cmd(devices, commands, cmd_type):
                 )
                 if devices['device_type'] == 'huawei_vrpv8':
                     net_connect.commit()
-                save_conf = net_connect.save_config()
+                    net_connect.save_config()
             if cmd_type == 'show':
-                print(f'@@@ {commands[devices["device_type"]]}')
-                send_cmd = net_connect.send_command(
-                    commands[devices['device_type']]
-                )
+                for command in commands[devices['device_type']]:
+                    cmd_show.append(net_connect.send_command(command))
+                send_cmd = " ".join(cmd_show)
             logging.info(received_msg.format(
                 datetime.now().time(), devices["ip"])
             )
             return f'''{"*"* 20} {devices["ip"]} {"*"* 20}\n\n
-                   {send_cmd}\n{save_conf}\n\n'''
+                   {send_cmd}\n\n'''
     except (NetmikoTimeoutException, NetmikoAuthenticationException) as error:
         return f'''{"*"* 20} {devices["ip"]} {"*"* 20}\n\n
                !!! ERROR !!!\n\n{error}'''
@@ -81,7 +81,10 @@ if __name__ == "__main__":
             'display cur',
             'display info'
         ],
-        'cisco_ios': ['show run', 'show ip int b'],
+        'cisco_ios': [
+            'show run',
+            'show ip int b'
+            ],
     }
     run_parallel_session(
         get_cred('device.csv'),
