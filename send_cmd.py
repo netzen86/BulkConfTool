@@ -3,11 +3,8 @@ from concurrent.futures import ThreadPoolExecutor as Tpe
 from datetime import datetime
 from itertools import repeat
 
-import sys
-sys.path.append(('/home/netzen/Study/netmiko/'))
-
 from netmiko import (ConnectHandler, NetmikoAuthenticationException,
-                                NetmikoTimeoutException)
+                     NetmikoTimeoutException)
 
 from file_csv import get_cred
 
@@ -48,7 +45,7 @@ def send_cmd(devices, commands, cmd_type):
                !!! ERROR !!!\n\n{error}'''
 
 
-def run_parallel_session(devices, filename, commands, cmd_type, limit=3):
+def run_parallel_session(devices, filename, commands, cmd_type='show', limit=3):
     """Function for run many connection to network devices"""
     with Tpe(max_workers=limit) as executor:
         result = executor.map(
@@ -74,21 +71,17 @@ if __name__ == "__main__":
     }
     config_show = {
         'huawei': [
-            'display cur',
-            'display info'
+            'display cur'
         ],
         'huawei_vrpv8': [
-            'display cur',
-            'display info'
+            'display cur'
         ],
         'cisco_ios': [
-            'show run',
-            'show ip int b'
+            'show run'
             ],
     }
     run_parallel_session(
         get_cred('device.csv'),
         'output_cmd.txt',
-        config_show,
-        'show'
+        config_show
     )
