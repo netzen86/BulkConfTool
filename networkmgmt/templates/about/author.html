@@ -1,0 +1,36 @@
+<!-- templates/about/author.html -->
+{% extends "base.html" %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <header class="pb-3 mb-4 border-bottom text-center">
+    <span class="fs-4 fw-bold" >Привет, меня зовут Дима.</span>
+  </header>
+
+  <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Моя работа</h1>
+      <p class="col-md-8 fs-4">Я работаю на пдедприятии энергетического сектора. Занимаюсь IT в подразделении связи. Наш отдел является своего рода владельцами неизвестного, все что никто не знает как делать поручают нам. Мы администрируем сервера, сетевое оборудование, телефонию, видеоконференц связь, средства защиты, разрабатываем скрипты для автоматизации рутинных задач.</p>
+    </div>
+  </div>
+
+  <div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="h-100 p-5 text-bg-dark rounded-3">
+        <h2>Моя семья</h2>
+        <p>У меня прекрасная семья, любимая жена и еще дочка и дочка ;)</p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="h-100 p-5 bg-light border rounded-3">
+        <h2>Мои хобби</h2>
+        <p>keyBOARD</p>
+        <p>snowBOARD</p>
+        <p>longBOARD</p>
+        <p>В последнее время спортом удается позаниматься редко к сожалению.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
