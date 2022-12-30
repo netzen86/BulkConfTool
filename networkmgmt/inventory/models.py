@@ -7,7 +7,7 @@ User = get_user_model()
 class Devices(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     device_type = models.TextField()
-    ip_add = models.IPAddressField()
+    ip_add = models.GenericIPAddressField()
     author = models.ForeignKey(
         User,
         on_delete=models.DO_NOTHING,
@@ -35,3 +35,11 @@ class Configurations(models.Model):
         verbose_name='Устройство'
     )
     configuration = models.TextField()
+
+    class Meta:
+        ordering = ('device',)
+        verbose_name = 'Конфигурация'
+        verbose_name_plural = 'Конфигурации'
+
+    def __str__(self):
+        return self.device
