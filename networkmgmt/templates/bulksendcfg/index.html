@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+<!-- класс py-5 создает отступы сверху и снизу блока -->
+<div class="container py-5">
+  <h1> {{ title }} </h1>
+  <br>
+  <hr>
+  {% for device in page_obj %}
+  <ul>
+    <li>
+      Автор: {{ device.author.get_full_name }}
+    </li>
+    <li>
+      Дата публикации: {{ device.pub_date|date:"d E Y" }}
+    </li>
+  </ul>
+  <p>{{ device.hostname|linebreaksbr }}</p>
+  {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+
+  <!-- под последним постом нет линии -->
+  <p>
+    {% include 'core/includes/paginator.html' %}
+  </p>
+</div>
+{% endblock %}

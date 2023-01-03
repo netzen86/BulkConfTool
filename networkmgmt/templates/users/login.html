@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block card_header %}
-  Войти на сайт
+  Войти в систему
 {% endblock %}
 
 {% block form_body %}
@@ -18,12 +18,4 @@
 
 {% block button_name %}
   Войти
-{% endblock %}
-
-{% block ext_data %}
-<!-- Тест на внимательность. Без переопределения шаблона этого адреса
-не существует. Нужно что-то делать, иначе все упадет -->
-<a href="{% url 'users:password_reset' %}" class="btn btn-link">
-  Забыли пароль?
-</a>
 {% endblock %}
