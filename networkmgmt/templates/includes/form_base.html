@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %} title {% endblock %}
 {% block content %}
+  <script>
+    function openLoader() {
+        document.getElementById("loadingModal").style.display = "block";
+      }
+  </script>
   <div class="row justify-content-center">
     <div class="col-md-8 p-5">
       <div class="card">
@@ -60,15 +65,35 @@
               </div>
               {% endfor %}
               <br>
-              <div class="col-md-6 offset-md-5">
+              <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">
                     {% block button_name %}{% endblock %}
                 </button>
-                {% block ext_data %}  {% endblock %}
+                {% if ext_data %}
+                  {% block ext_data %}  {% endblock %}
+                {% endif %}
               </div>
             </form>
           </div> <!-- card body -->
         </div> <!-- card -->
+        <div id="loadingModal" style="display: none;">
+          <br>
+          <div class="d-flex justify-content-between text-primary">
+            <strong>Отправка команд...</strong>
+            <div class="spinner-border ms-auto text-primary" role="status" aria-hidden="true"></div>
+          </div>
+          <br>
+        </div>
+        {% if messages %}
+          <br>
+          <div class="card">
+              <ul class="messages">
+                {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+              </ul>
+          </div>
+        {% endif %}
       </div> <!-- col -->
   </div> <!-- row -->
 {% endblock %}

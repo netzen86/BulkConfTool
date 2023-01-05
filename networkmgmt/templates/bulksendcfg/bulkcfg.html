@@ -1,21 +1,21 @@
 {% extends "includes/form_base.html" %}
 
 {% block title %}
-  Вход
+  Настройка группы устройств
 {% endblock %}
 
 {% block card_header %}
-  Войти в систему
+  Отправка комнд на устройства
 {% endblock %}
 
 {% block form_body %}
-  <form method="post"
+  <form onsubmit="openLoader()" method="post"
       {% if action_url %}
-        action="{% url action_url %}"
+        action="{% url 'action_url' %}"
       {% endif %}
   >
 {% endblock %}
 
 {% block button_name %}
-  Войти
+  Отправить команды
 {% endblock %}
