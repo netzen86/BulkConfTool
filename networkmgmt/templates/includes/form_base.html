@@ -67,11 +67,9 @@
               <br>
               <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">
-                    {% block button_name %}{% endblock %}
+                {% block button_name %}{% endblock %}
                 </button>
-                {% if ext_data %}
-                  {% block ext_data %}  {% endblock %}
-                {% endif %}
+                {% block ext_data %}{% endblock %}
               </div>
             </form>
           </div> <!-- card body -->
@@ -93,7 +91,16 @@
                 {% endfor %}
               </ul>
           </div>
-        {% endif %}
+          <br>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" 
+                    type="submit" 
+                    onclick="location.href='{% url 'core:save_file' %}'" 
+                    name='mybtn2'>
+              Download file
+            </button>
+          </div>
+          {% endif %}
       </div> <!-- col -->
   </div> <!-- row -->
 {% endblock %}
