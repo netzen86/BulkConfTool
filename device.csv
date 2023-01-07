@@ -1,5 +1,10 @@
 device_type,ip,username,password,secret
-huawei_vrpv8,172.16.133.1,huawei,p@S$w0rd567,huawei
-cisco_ios,172.16.133.15,cisco,cisco,cisco
-huawei_vrpv8,172.16.133.13,huawei,P@s$w0rd890,huawei
-huawei,172.16.133.11,huawei,p@S$w0rd567,huawei
+huawei_vrpv8,172.16.133.1,huawei,p@S$w0rd890,huawei
+cisco_ios,172.16.133.15,cisco,p@S$w0rd890,cisco
+huawei_vrpv8,172.16.133.13,huawei,p@S$w0rd890,huawei
+huawei,172.16.133.11,huawei,p@S$w0rd890,huawei
+
+
+{"huawei": ["display cur", "disp ver"], "huawei_vrpv8": ["display cur", "disp ver"], "cisco_ios": ["show run", "show ver"]}
+
+

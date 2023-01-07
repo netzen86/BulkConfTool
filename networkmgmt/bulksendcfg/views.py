@@ -4,6 +4,7 @@ from core.send_cmd import run_parallel_session
 from inventory.models import Devices
 from .forms import CommandsForm
 from django.forms.models import model_to_dict
+from django.core.cache import cache
 import json
 
 
@@ -15,6 +16,7 @@ def bulk_send_cmd(request):
         # create a form instance and populate it with data from the request:
         form = CommandsForm(request.POST)
         devices = []
+        result = []
         for obj in Devices.objects.all():
             devices.append({
                 'device_type': model_to_dict(obj)['device_type'],
@@ -25,13 +27,17 @@ def bulk_send_cmd(request):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            run_parallel_session(
+            cmd_output = run_parallel_session(
                 devices,
-                'output_cmd.txt',
                 json.loads(form.cleaned_data['commands']),
-                request
-                )
+                request,
+                form.cleaned_data['cfg_cmd']
+            )
             # redirect to a new URL:
+            for text_line in cmd_output:
+                if text_line:
+                    result.append(text_line)
+            cache.set('cmd_output', '\n'.join(result), 3600)
             return render(request, template, {'form': form})
 
     # if a GET (or any other method) we'll create a blank form

@@ -1,14 +1,18 @@
 from django import forms
 
-CMD_TMPLATE = '''Для отправки команд на устройства нужно
-                 заполнить шаблон:
-                 {"huawei": ["cmd 1", "cmd 2", ... ],
-                 "huawei_vrpv8": [], "cisco_ios": []}'''
+HLP_TEXT = 'Для отправки команд на устройства нужно заполнить шаблон.'
+CMD_DICT_TMPLATE = '''{"huawei": ["disp ver", "disp ip int b"], "huawei_vrpv8": ["disp ver"], "cisco_ios": ["sh ver"]}'''
 
 
 class CommandsForm(forms.Form):
     commands = forms.CharField(
         widget=forms.Textarea,
-        label='commands',
-        help_text=CMD_TMPLATE
+        label='Команды для выполнения',
+        help_text=HLP_TEXT,
+        initial=CMD_DICT_TMPLATE
+    )
+    cfg_cmd = forms.BooleanField(
+        label='Команды конфигурации',
+        initial=False,
+        required=False
     )

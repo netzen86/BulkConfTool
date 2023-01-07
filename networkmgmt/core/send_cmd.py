@@ -32,14 +32,14 @@ def send_cmd(devices, commands, request, cmd_type):
     )
     try:
         with ConnectHandler(**devices) as net_connect:
-            if cmd_type == 'config':
+            if cmd_type:
                 send_cmd = net_connect.send_config_set(
                     commands[devices['device_type']]
                 )
                 if devices['device_type'] == 'huawei_vrpv8':
                     net_connect.commit()
                     net_connect.save_config()
-            if cmd_type == 'show':
+            if not cmd_type:
                 for command in commands[devices['device_type']]:
                     cmd_show.append(net_connect.send_command(command))
                 send_cmd = " ".join(cmd_show)
@@ -68,10 +68,9 @@ def send_cmd(devices, commands, request, cmd_type):
 
 def run_parallel_session(
     devices,
-    filename,
     commands,
     request,
-    cmd_type='show',
+    cmd_type=False,
     limit=3
 ):
     """Function for run many connection to network devices"""
@@ -82,8 +81,6 @@ def run_parallel_session(
             repeat(request),
             repeat(cmd_type),
         )
-    with open(filename, "w") as f:
-        f.writelines(result)
     return result
 
 

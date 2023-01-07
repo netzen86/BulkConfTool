@@ -5,6 +5,6 @@ app_name = 'core'
 
 
 urlpatterns = [
-    path('',
-         views.index, name='index'),
+    path('', views.index, name='index'),
+    path('save_file/', views.save_file, name='save_file'),
 ]

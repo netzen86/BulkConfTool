@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.core.cache import cache
 
 
 def page_not_found(request, exception):
@@ -42,3 +44,17 @@ def index(request):
         'title': title
     }
     return render(request, template, context)
+
+
+@login_required
+def save_file(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type='text/plain',
+        headers={
+            'Content-Disposition': 'attachment; filename="cmd-output.txt"'
+        },
+    )
+    data_for_save = cache.get('cmd_output')
+    response.write(data_for_save)
+    return response
