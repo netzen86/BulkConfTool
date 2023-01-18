@@ -1,0 +1,53 @@
+{% extends "includes/form_base.html" %}
+
+
+{% block title %}
+  Настройка портов коммутаторов
+{% endblock %}
+
+{% block card_header %}
+  Поиск розетки
+{% endblock %}
+
+{% block form_body %}
+  <form method="post"
+      {% if action_url %}
+        action="{% url 'action_url' %}"
+      {% endif %}
+  >
+{% endblock %}
+
+{% block button_name %}
+  Поиск
+{% endblock %}
+
+{% block messages %}
+<br>
+<form method = "post">
+  {% csrf_token %}
+  {{ messages.items}}
+  <table class="table table-bordered border-primary w-auto">
+    {{ messages.management_form }}
+    <thead class="table table-bordered border-primary">
+      <tr>
+        {% for field in messages.form %}
+          <th>{{ field.label }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in messages %}
+        <tr>
+          {% for field in form %}
+            <td class="th-sm">{{ field }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+ </table>
+<br>
+  <button type="submit" class="btn btn-primary">
+    Apply
+  </button>
+</form>
+{% endblock %}
