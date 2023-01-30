@@ -10,15 +10,16 @@
       </li>
       <li class="nav-item">
         <a href="{% url 'bulksendcfg:bulk_send_cmd' %}"
-           class="nav-link {% if view_name  == 'bulksendcfg:bulk_send_cmd' %}active{% endif %} text-nowrap">
+           class="nav-link {% if view_name  == 'bulksendcfg:bulk_send_cmd' %}active{% endif %}">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
             Настройка группы устройств
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-dark">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Orders
+        <a href="{% url 'swportmgmt:switch_port_mgmt' %}" 
+           class="nav-link {% if view_name  == 'swportmgmt:switch_port_mgmt' %}active{% endif %}">
+          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#outlet"></use></svg>
+          Управление портами коммутаторов
         </a>
       </li>
       <li>

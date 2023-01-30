@@ -8,11 +8,12 @@ class DevicesAdmin(admin.ModelAdmin):
     list_display = ('device_type',
                     'ip_add',
                     'author',
+                    'type',
                     'serial_num',
                     'model',
                     'hostname',
                     'os_version',
-                    'vendor')
+                    'vendor',)
     search_fields = ('serial', 'ip')
     empty_value_display = '-пусто-'
 

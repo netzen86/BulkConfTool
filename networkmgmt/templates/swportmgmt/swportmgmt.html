@@ -23,7 +23,7 @@
 
 {% block messages %}
 <br>
-<form method = "post">
+<form class='form-control-static' method = "post">
   {% csrf_token %}
   {{ messages.items}}
   <table class="table table-bordered border-primary w-auto">
@@ -31,7 +31,7 @@
     <thead class="table table-bordered border-primary">
       <tr>
         {% for field in messages.form %}
-          <th>{{ field.label }}</th>
+          <th class="text-center" align="center">{{ field.label }}</th>
         {% endfor %}
       </tr>
     </thead>
@@ -39,7 +39,7 @@
       {% for form in messages %}
         <tr>
           {% for field in form %}
-            <td class="th-sm">{{ field }}</td>
+            <td align="center">{{ field }}</td>
           {% endfor %}
         </tr>
       {% endfor %}

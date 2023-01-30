@@ -8,6 +8,7 @@ handler403 = 'core.views.permission_denied'
 urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path('bulkcfg/', include('bulksendcfg.urls', namespace='bulksendcfg')),
+    path('swportmgmt/', include('swportmgmt.urls', namespace='swportmgmt')),
     path('admin/', admin.site.urls),
     path('auth/', include('users.urls', namespace='users')),
     path('auth/', include('django.contrib.auth.urls')),

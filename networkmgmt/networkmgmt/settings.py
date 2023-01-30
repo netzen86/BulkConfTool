@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'inventory.apps.InventoryConfig',
     'bulksendcfg.apps.BulksendcfgConfig',
+    'swportmgmt.apps.SwportmgmtConfig'
 ]
 
 MIDDLEWARE = [

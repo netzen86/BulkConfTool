@@ -38,7 +38,7 @@ def bulk_send_cmd(request):
                 if text_line:
                     result.append(text_line)
             cache.set('cmd_output', '\n'.join(result), 3600)
-            return render(request, template, {'form': form})
+            return render(request, template, {'form': form, 'save_file': True})
 
     # if a GET (or any other method) we'll create a blank form
     else:
