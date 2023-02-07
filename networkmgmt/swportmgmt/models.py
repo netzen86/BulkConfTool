@@ -60,6 +60,11 @@ class SwitchPortMgmt(models.Model):
         blank=True,
         null=True,
     )
+    socket = models.CharField(
+        max_length=254,
+        blank=True,
+        null=True,
+    )
     description = models.CharField(
         max_length=254,
         blank=True,
@@ -75,12 +80,6 @@ class SwitchPortMgmt(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Ch VLAN',
     )
-
-    # models.CharField(
-    #     max_length=10,
-    #     choices=Vlans.objects.filter(switch_id=F('switch_id'))
-    # )
-    
     shut_port = models.BooleanField(default=False)
     clear_mac = models.BooleanField(default=False)
     state = models.CharField(

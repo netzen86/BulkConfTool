@@ -5,6 +5,7 @@ from django import forms
 
 class SwitchPortSearchForm(forms.Form):
     search_box = forms.CharField(max_length=100)
+    # cleaned_data = {}
 
 
 class SwitchPortMgmtForm(forms.ModelForm):
@@ -18,11 +19,22 @@ class SwitchPortMgmtForm(forms.ModelForm):
                 )
             )
 
+    # def clean(self):
+    #     for value, key in self.instance:
+    #         print(f' Data in validators: Value:{value} Key:{type(key)}')
+    #         # self.cleaned_data[key] = value
+    #     # Get the user submitted names from the cleaned_data dictionary
+    #     return self.cleaned_data
+
+    # def cleaned_data(self):
+    #     return self.cleaned_data
+
     class Meta:
         model = SwitchPortMgmt
         fields = (
             'switch',
             'port',
+            'socket',
             'description',
             'mac',
             'change_vlan',
@@ -33,7 +45,15 @@ class SwitchPortMgmtForm(forms.ModelForm):
             'connect',
         )
         widgets = {
-            'switch': forms.TextInput(attrs={'disabled': True, 'size': 15}),
-            'port': forms.TextInput(attrs={'disabled': True, 'size': 6}),
-            'description': forms.TextInput(attrs={'disabled': True, 'size': 15}),
+            'switch': forms.TextInput(attrs={'readonly': True, 'size': 15}),
+            'port': forms.TextInput(attrs={'readonly': True, 'size': 6}),
+            'socket': forms.TextInput(attrs={'size': 7}),
+            'description': forms.TextInput(attrs={'size': 15}),
+            'mac': forms.TextInput(attrs={'size': 17}),
+            'change_vlan': forms.TextInput(attrs={'size': 15}),
+            'shut_port': forms.CheckboxInput(attrs={'size': 5}),
+            'clear_mac': forms.CheckboxInput(attrs={'size': 5}),
+            'state': forms.TextInput(attrs={'readonly': False, 'size': 6}),
+            'on_off': forms.TextInput(attrs={'readonly': False, 'size': 3}),
+            'connect': forms.TextInput(attrs={'readonly': False, 'size': 3}),
         }
