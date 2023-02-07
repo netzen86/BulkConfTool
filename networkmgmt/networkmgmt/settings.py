@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
+    'debug_toolbar',
     'inventory.apps.InventoryConfig',
     'bulksendcfg.apps.BulksendcfgConfig',
     'swportmgmt.apps.SwportmgmtConfig'
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'networkmgmt.urls'
@@ -76,6 +78,11 @@ TEMPLATES = [
         },
     },
 ]
+
+# django-debug-toolbar
+INTERNAL_IPS = [
+    '127.0.0.1',
+] 
 
 WSGI_APPLICATION = 'networkmgmt.wsgi.application'
 
