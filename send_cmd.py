@@ -1,3 +1,4 @@
+import os
 import logging
 from concurrent.futures import ThreadPoolExecutor as Tpe
 from datetime import datetime
@@ -15,24 +16,29 @@ logging.basicConfig(
     level=logging.INFO
 )
 
+PASSWORD = os.getenv('password')
+ENABLE = os.getenv('en_pass')
 
 def send_cmd(devices, commands, cmd_type):
     """Function for send command on network device"""
     cmd_show = []
+    model = devices['model']
+    del devices['model']
     start_msg = "===> {} Connection: {}"
     received_msg = "<=== {} Received:   {}"
     logging.info(start_msg.format(datetime.now().time(), devices["ip"]))
     try:
         with ConnectHandler(**devices) as net_connect:
             if cmd_type == 'config':
-                send_cmd = net_connect.send_config_set(
-                    commands[devices['device_type']]
-                )
-                if devices['device_type'] == 'huawei_vrpv8':
+                for cmd in commands[model]:
+                    send_cmd = net_connect.send_command(cmd)
+                    if type(cmd) == 'list':
+                        send_cmd = net_connect.send_multiline(cmd)
+                if model == 'nem6':
                     net_connect.commit()
                     net_connect.save_config()
             if cmd_type == 'show':
-                for command in commands[devices['device_type']]:
+                for command in commands[model]:
                     cmd_show.append(net_connect.send_command(command))
                 send_cmd = " ".join(cmd_show)
             logging.info(received_msg.format(
@@ -59,15 +65,19 @@ def run_parallel_session(devices, filename, commands, cmd_type='show', limit=3):
 
 if __name__ == "__main__":
     config_conf = {
-        'huawei': [
+        'nem6': [
             'info-center loghost 172.16.155.200 facility local6',
             'undo info-center loghost 172.16.155.101',
         ],
-        'huawei_vrpv8': [
-            'info-center loghost 172.16.155.200 level informational',
-            'undo info-center loghost 172.16.155.101',
-        ],
-        'cisco_ios': ['no logging 172.16.144.77', 'logging 172.16.144.200'],
+        'ar6120': [
+            [['super password level 15 cipher', r'Enter Password(<8-16>):'],
+             [ENABLE, r'Confirm password:'],
+             [ENABLE, '']],
+            f'local-user test_user password irreversible-cipher {PASSWORD}',
+            'local-user test_user service-type ssh',
+            [['local-user test_user privilege level 15', r'Warning: This operation may affect online users, are you sure to change the user privilege level ?[Y/N]'],
+             ['y', '']]],
+        '2901': ['no logging 172.16.144.77', 'logging 172.16.144.200'],
     }
     config_show = {
         'huawei': [
@@ -83,5 +93,5 @@ if __name__ == "__main__":
     run_parallel_session(
         get_cred('device.csv'),
         'output_cmd.txt',
-        config_show
+        config_conf
     )
