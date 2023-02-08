@@ -130,3 +130,6 @@ dmypy.json
 networkmgmt/networkmgmt/urls.py
 .gitignore
 networkmgmt/static/.DS_Store
+
+# netmiko
+netmiko/
