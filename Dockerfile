@@ -13,3 +13,4 @@ RUN pip3 install -r requirements.txt --no-cache-dir
 
 # Выполнить запуск сервера при старте контейнера. 
 # Для отображения отладочной информации добавить ключ "--log-syslog"
+CMD ["python3", "networkmgmt/manage.py", "runserver", "0:8000"] 
