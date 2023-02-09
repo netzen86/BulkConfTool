@@ -1,5 +1,5 @@
 device_type,ip,username,password,secret,model
-huawei_vrpv8,172.16.133.1,huawei,p@S$w0rd890,huawei,nem6
-cisco_ios,172.16.133.15,cisco,p@S$w0rd890,cisco,2901
-huawei_vrpv8,172.16.133.13,huawei,p@S$w0rd890,huawei,nem6
+huawei_vrpv8,172.16.133.1,huawei,p@S$w0rd890,huawei,nem6&ce
+cisco_ios,172.16.133.15,cisco,p@S$w0rd890,cisco,cisco
+huawei_vrpv8,172.16.133.13,huawei,p@S$w0rd890,huawei,nem6&ce
 huawei,172.16.133.11,huawei,p@S$w0rd890,huawei,ar6120
