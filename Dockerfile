@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.10
 
 WORKDIR /
  
@@ -6,8 +6,8 @@ WORKDIR /
 COPY . .
 # Выполняем установку зависимостей внутри контейнера.
 # раскоментировать что бы собрать на маке
-RUN apt-get update \
-    && apt-get -y install vim
+RUN apt update \
+    && apt -y install vim libsasl2-dev python-dev libldap2-dev libssl-dev
 RUN python3 -m pip install --upgrade pip setuptools
 RUN pip3 install -r requirements.txt --no-cache-dir
 
