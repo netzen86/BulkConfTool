@@ -28,54 +28,29 @@ def send_cmd(devices, commands, cmd_type):
     send_cmd = ""
     model = devices["model"]
     del devices["model"]
-    start_msg = "===> {} Connection: {}"
-    received_msg = "<=== {} Received:   {}"
-    logging.info(start_msg.format(datetime.now().time(), devices["ip"]))
+    start_msg = "===> {} Connection: {} {}"
+    received_msg = "<=== {} Received:   {} {}"
+    logging.info(start_msg.format(datetime.now().time(), devices["ip"], model))
     try:
         with ConnectHandler(**devices) as net_connect:
             if cmd_type == "config":
                 net_connect.config_mode()
                 for cmd in commands[model]:
-                    if r"local-user.*?privilege level \d*" in cmd:
+                    if type(cmd) == list:
+                        logging.info(f'in if list {model}')
+                        cmd_show.append(
+                            net_connect.send_multiline_timing(cmd)
+                        )
+                    else:
+                        logging.info(f'in else {model}')
                         cmd_show.append(
                             net_connect.send_command(
-                                cmd,
-                                expect_string=r"\[Y\/N\]$",
+                                cmd, expect_string=r"\[?.*?[\]#]",
                                 strip_command=False
                             )
                         )
-                        cmd_show.append(
-                            net_connect.send_command("Y", strip_command=False)
-                        )
-                    if r"super password level \d* cipher" in cmd:
-                        cmd_show.append(
-                            net_connect.send_command(
-                                cmd,
-                                expect_string=r"Enter Password\(<8-16>\):",
-                                strip_command=False,
-                            )
-                        )
-                        cmd_show.append(
-                            net_connect.send_command(
-                                PASSWORD,
-                                expect_string=r"Confirm password:",
-                                strip_command=False,
-                            )
-                        )
-                        cmd_show.append(
-                            net_connect.send_command(
-                                ENABLE,
-                                expect_string=r"\[.*?\]",
-                                strip_command=False
-                            )
-                        )
-                    cmd_show.append(
-                        net_connect.send_command(
-                            cmd, expect_string=r"\[.*?\]", strip_command=False
-                        )
-                    )
-                    logging.info(f"output command {cmd_show}")
-                if model == "nem6":
+                    # logging.info(f"output command {cmd_show}")
+                if model == "nem6&ce":
                     net_connect.commit()
                 net_connect.save_config()
             if cmd_type == "show":
@@ -83,7 +58,7 @@ def send_cmd(devices, commands, cmd_type):
                     cmd_show.append(net_connect.send_command(command))
             send_cmd = " ".join(cmd_show)
             logging.info(received_msg.format(
-                datetime.now().time(), devices["ip"])
+                datetime.now().time(), devices["ip"], model)
             )
             return f"""{"*"* 20} {devices["ip"]} {"*"* 20}\n\n
                    {send_cmd}\n\n"""
@@ -113,18 +88,24 @@ def run_parallel_session(
 
 if __name__ == "__main__":
     config_conf = {
-        "nem6": [
-            "info-center loghost 172.16.155.200 facility local6",
-            "undo info-center loghost 172.16.155.101",
+        "nem6&ce": [
+            "sysname ne0902v",
+            "aaa",
+            f"local-user test_user18 password irreversible-cipher {PASSWORD}",
+            "local-user test_user18 service-type ssh",
+            "local-user test_user18 level 15",
         ],
         "ar6120": [
-            "sysname ar1777v",
+            ["super password level 15 cipher", ENABLE, ENABLE],
+            "sysname ar1787v",
             "aaa",
-            f"local-user test_user13 password irreversible-cipher {PASSWORD}",
-            "local-user test_user13 service-type ssh",
-            "local-user test_user13 privilege level 1",
+            f"local-user test_user18 password irreversible-cipher {PASSWORD}",
+            "local-user test_user18 service-type ssh",
+            ["local-user test_user18 privilege level 1", "y"],
         ],
-        "2901": ["no logging 172.16.144.77", "logging 172.16.144.200"],
+        "cisco": [
+            f"username test-user priv 1 sec {PASSWORD}",
+            f"enable sec {ENABLE}"],
     }
     config_show = {
         "huawei": ["display cur"],
