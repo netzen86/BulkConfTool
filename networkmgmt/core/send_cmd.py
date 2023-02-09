@@ -1,8 +1,11 @@
 import logging
+import sys
 from django.contrib import messages
 from concurrent.futures import ThreadPoolExecutor as Tpe
 from datetime import datetime
 from itertools import repeat
+
+sys.path.append("netmiko/")
 
 
 from netmiko import (ConnectHandler, NetmikoAuthenticationException,
