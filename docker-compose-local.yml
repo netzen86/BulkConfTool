@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+
+  netmgmt:
+    image: runscript2:latest
+    ports:
+      - "8000:8000"    
+    volumes:
+      - ./on_container:/on_host
