@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import SwitchPortSearchForm, SwitchPortMgmtForm
@@ -101,10 +102,23 @@ class SwitchPortMgmtFormView(FormView):
     def post(self, request, *args, **kwargs):
         switchportmgmt_form = self.form_class(request.POST)
         search_form = SwitchPortSearchForm(self.request.GET or None)
-        print(f'!!! DATA {switchportmgmt_form.data}')
-        # switchportmgmt_form.clean()
-        # print(f'!!! Instance {switchportmgmt_form.errors}')
-        if switchportmgmt_form.is_valid():
+        form_data = []
+        valid_data = {}
+        counter = 0
+        pprint(switchportmgmt_form.data)
+        for key, value in switchportmgmt_form.data.items():
+            if re.sub(r'form-\d+?-', '', key) in switchportmgmt_form.fields.keys():
+                valid_data[re.sub(r'form-\d+?-', '', key)] = value
+                counter += 1
+            if counter == len(switchportmgmt_form.fields.keys()):
+                form_data.append(valid_data.copy())
+                counter = 0
+        SwitchPortFormSet = formset_factory(
+            SwitchPortMgmtForm,
+            extra=0
+        )
+        switchportmgmt_form = SwitchPortFormSet(initial=form_data)
+        if switchportmgmt_form:
             print('!!! This fucking form valid !!!')
             return self.render_to_response(
                 {'search_form': search_form,
@@ -112,8 +126,6 @@ class SwitchPortMgmtFormView(FormView):
                 )
         else:
             return self.render_to_response(
-                self.get_context_data(
-                    search_form=search_form,
-                    switchportmgmt_form=switchportmgmt_form
-                )
+                {'search_form': search_form,
+                 'switchportmgmt': switchportmgmt_form}
             )
