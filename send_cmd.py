@@ -37,9 +37,9 @@ def send_cmd(devices, commands, cmd_type):
                 net_connect.config_mode()
                 for cmd in commands[model]:
                     if type(cmd) == list:
-                        logging.info(f'in if list {model}')
+                        logging.info(f'in if list {cmd}')
                         cmd_show.append(
-                            net_connect.send_multiline_timing(cmd)
+                            net_connect.send_multiline(cmd)
                         )
                     else:
                         logging.info(f'in else {model}')
@@ -96,12 +96,18 @@ if __name__ == "__main__":
             "local-user test_user18 level 15",
         ],
         "ar6120": [
-            ["super password level 15 cipher", ENABLE, ENABLE],
-            "sysname ar1787v",
+            # [["super password level 15 cipher", r"\(<8-16>\):"],
+            #  [f"{ENABLE} \n", r"Confirm password"],
+            #  [f"{ENABLE} \n", ""],],
+            [["super password level 15 cipher", r"\(<8-16>\):"],
+             [f"{ENABLE}", r"onfirm"],
+             [f"{ENABLE}", ""], ],
+            "sysname ar2023v",
             "aaa",
-            f"local-user test_user18 password irreversible-cipher {PASSWORD}",
-            "local-user test_user18 service-type ssh",
-            ["local-user test_user18 privilege level 1", "y"],
+            f"local-user test_user77 password irreversible-cipher {PASSWORD}",
+            "local-user test_user77 service-type ssh",
+            [["local-user test_user77 privilege level 6", r"[Y/N]"],
+             ["y", ""], ],
         ],
         "cisco": [
             f"username test-user priv 1 sec {PASSWORD}",
