@@ -9,13 +9,17 @@ docker build -t runscript .
 ```
 Save docker image in file
 ```
-docker save myimage:latest | gzip > myimage_latest.tar.gz
+docker save runscript:latest | gzip > runscript.tar.gz
 ```
 Load docker image from file
 ```
-docker load < busybox.tar.gz
+docker load < runscript.tar.gz
 ```
 Start the docker container using bash and after exiting the container remove it.
 ```
 docker run -it --rm runscript bash
+```
+```
+export en_pass="p@S\$w0rd777"
+export password="p@S\$w0rd890"
 ```
