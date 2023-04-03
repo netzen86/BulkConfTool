@@ -6,6 +6,7 @@ Using netmiko.
 In directory where place Dockerfile run this command for build docker image.  
 ```
 docker build -t runscript .
+docker buildx build --platform=linux/amd64 -t runscript2 .
 ```
 Save docker image in file
 ```
@@ -18,6 +19,7 @@ docker load < runscript.tar.gz
 Start the docker container using bash and after exiting the container remove it.
 ```
 docker run -it --rm runscript bash
+docker compose -f infra/docker-compose.yml up --build
 ```
 ```
 export en_pass="p@S\$w0rd777"
