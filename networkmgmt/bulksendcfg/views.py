@@ -23,6 +23,7 @@ def bulk_send_cmd(request):
                 'ip': model_to_dict(obj)['ip_add'],
                 'username': request.user.username,
                 'password': request.user.dev_password,
+                'model': model_to_dict(obj)['model'],
                 })
         # check whether it's valid:
         if form.is_valid():
