@@ -2,7 +2,7 @@ version: '3.3'
 services:
 
   netmgmt:
-    image: runscript:latest
+    image: netmgmt:latest
     ports:
       - "8000:8000"    
     volumes:
