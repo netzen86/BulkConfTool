@@ -5,21 +5,22 @@ Using netmiko.
 
 In directory where place Dockerfile run this command for build docker image.  
 ```
-docker build -t runscript .
-docker buildx build --platform=linux/amd64 -t runscript2 .
+docker build -t netmgmt .
+docker buildx build --platform=linux/amd64 -t netmgmt .
 ```
 Save docker image in file
 ```
-docker save runscript:latest | gzip > runscript.tar.gz
+docker save netmgmt:latest | gzip > netmgmt.tar.gz
 ```
 Load docker image from file
 ```
-docker load < runscript.tar.gz
+docker load < netmgmt.tar.gz
 ```
 Start the docker container using bash and after exiting the container remove it.
 ```
-docker run -it --rm runscript bash
-docker compose -f infra/docker-compose.yml up --build
+docker run -it --rm netmgmt bash
+docker compose up -d
+docker-compose -f docker-compose-local.yml exec netmgmt bash
 ```
 ```
 export en_pass="p@S\$w0rd777"
