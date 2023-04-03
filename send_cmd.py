@@ -7,7 +7,7 @@ from itertools import repeat
 from file_csv import get_cred
 from paramiko import ssh_exception
 
-sys.path.append("/Users/netzen/study/BulkConfTool/netmiko/")
+sys.path.append("./netmiko/")
 
 from netmiko import (ConnectHandler, NetmikoAuthenticationException,
                      NetmikoTimeoutException)
