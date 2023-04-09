@@ -1,0 +1,13 @@
+Value Filldown hostname (.+)
+Value Required int_number (.+)
+Value description (.+)
+Value mode (.+)
+Value status (shutdown)
+
+Start
+  ^\s?sysname ${hostname}
+  ^interface -> Continue.Record
+  ^interface ${int_number} 
+  ^ description ${description}
+  ^ port link-type ${mode}
+  ^ ${status} -> Continue
