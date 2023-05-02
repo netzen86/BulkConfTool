@@ -2,10 +2,9 @@ import sys
 import os
 import textfsm
 import xlsxwriter
-from pprint import pprint
 from tabulate import tabulate
 
-workbook = xlsxwriter.Workbook('Expenses02.xlsx')
+workbook = xlsxwriter.Workbook('huawei.xlsx')
 worksheet = workbook.add_worksheet()
 
 template = sys.argv[1]
