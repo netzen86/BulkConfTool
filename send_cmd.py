@@ -53,7 +53,10 @@ def send_cmd(devices, commands, cmd_type):
                 net_connect.save_config()
             if cmd_type == "show":
                 for command in commands[model]:
-                    cmd_show.append(net_connect.send_command(command))
+                    cmd_show.append(net_connect.send_command(
+                        command,
+                        strip_command=False
+                    ))
             send_cmd = "\n".join(cmd_show)
             logging.info(received_msg.format(
                 datetime.now().time(), devices["ip"], model)
@@ -104,19 +107,21 @@ if __name__ == "__main__":
             [["local-user test_user44 privilege level 1", r"[Y/N]"],
              ["y", ""], ],
         ],
-        "cisco": [
-            "hostname ciscorouter",
-            f"username test-user177 priv 1 sec {PASSWORD}",
-            f"enable sec {ENABLE}"],
+        "cisco": ["username cisco privilege 15"],
+        # "cisco": [
+        #     "hostname ciscorouter",
+        #     f"username test-user177 priv 1 sec {PASSWORD}",
+        #     f"enable sec {ENABLE}"],
     }
     config_show = {
-        "huawei": ["display cur"],
-        "huawei_vrpv8": ["display cur"],
-        "cisco_ios": ["show run"],
+        "ar6120": ["display cur"],
+        "nem6&ce": ["display cur"],
+        "cisco": ["show run"],
     }
     run_parallel_session(
         get_cred("device.csv"),
         "output_cmd.txt",
-        config_conf,
-        cmd_type="config",
+        config_show,
+        cmd_type='show'
     )
+# 'config',
