@@ -2,7 +2,7 @@ version: '3.3'
 services:
 
   netmgmt:
-    image: netmgmt:latest
+    image: netmgmt:alt
     ports:
       - "8000:8000"    
     volumes:
