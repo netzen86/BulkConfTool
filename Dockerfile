@@ -6,8 +6,8 @@ WORKDIR /
 COPY . .
 # Выполняем установку зависимостей внутри контейнера.
 # раскоментировать что бы собрать на маке
-RUN apt update \
-    && apt -y install vim libsasl2-dev python-dev libldap2-dev libssl-dev
+RUN apt update && apt -y upgrade\
+    && apt -y install vim libsasl2-dev libldap2-dev libssl-dev
 RUN python3 -m pip install --upgrade pip setuptools
 RUN pip3 install -r requirements.txt --no-cache-dir
 
