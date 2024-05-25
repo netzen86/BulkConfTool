@@ -7,6 +7,7 @@ In directory where place Dockerfile run this command for build docker image.
 ```
 docker build -t netmgmt .
 docker buildx build --platform=linux/amd64 -t netmgmt .
+docker buildx build --platform=linux/amd64 -t netmgmt -f Dockerfile-alt .
 ```
 Save docker image in file
 ```
