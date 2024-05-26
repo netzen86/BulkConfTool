@@ -1,5 +1,5 @@
-import sys
-sys.path.append("../netmiko/")
+# import sys
+# sys.path.append("../netmiko/")
 
 from netmiko.ssh_dispatcher import CLASS_MAPPER_BASE
 

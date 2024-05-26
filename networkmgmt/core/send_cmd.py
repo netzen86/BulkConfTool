@@ -1,18 +1,18 @@
 import logging
-import sys
+# import sys
 from django.contrib import messages
 from concurrent.futures import ThreadPoolExecutor as Tpe
 from datetime import datetime
 from itertools import repeat
 from paramiko import ssh_exception
 
-sys.path.append("../netmiko/")
+# sys.path.append("../netmiko/")
 
 
 from netmiko import (ConnectHandler, NetmikoAuthenticationException,
                      NetmikoTimeoutException)
 
-from .file_csv import get_cred
+# from .file_csv import get_cred
 
 logging.getLogger("paramiko").setLevel(logging.WARNING)
 
@@ -39,10 +39,10 @@ def send_cmd(devices, commands, request, cmd_type):
     )
     try:
         with ConnectHandler(**devices) as net_connect:
-            if cmd_type == "config":
+            if cmd_type:
                 net_connect.config_mode()
                 for cmd in commands[model]:
-                    if type(cmd) == list:
+                    if type(cmd) is list:
                         cmd_show.append(
                             net_connect.send_multiline(cmd, cmd_verify=False)
                         )
@@ -54,7 +54,7 @@ def send_cmd(devices, commands, request, cmd_type):
                                 strip_command=False
                             )
                         )
-                if model == "nem6&ce":
+                if model == "huawei_vrpv8":
                     net_connect.commit()
                 net_connect.save_config()
             if not cmd_type:
