@@ -1,19 +1,27 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from core.keys_to_tup import keys_to_tup
+
 
 User = get_user_model()
 
 
-CHOICES_TYPE = (
+CHOICES_DEV_TYPE = (
     ('router', 'router'),
     ('switch', 'switch'),
 )
+
+CHOICES_SSH_TYPE = keys_to_tup()
 
 
 class Devices(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     # This field is used by netmiko to connect to the device.
-    device_type = models.TextField()
+    device_type = models.CharField(
+        max_length=21,
+        default=None,
+        choices=CHOICES_SSH_TYPE,
+    )
     ip_add = models.GenericIPAddressField()
     author = models.ForeignKey(
         User,
@@ -23,7 +31,7 @@ class Devices(models.Model):
     type = models.CharField(
         max_length=10,
         default=None,
-        choices=CHOICES_TYPE,
+        choices=CHOICES_DEV_TYPE,
     )
     serial_num = models.TextField()
     model = models.TextField()
