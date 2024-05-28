@@ -9,8 +9,11 @@ from paramiko import ssh_exception
 # sys.path.append("../netmiko/")
 
 
-from netmiko import (ConnectHandler, NetmikoAuthenticationException,
-                     NetmikoTimeoutException)
+from netmiko import (
+    ConnectHandler,
+    NetmikoAuthenticationException,
+    NetmikoTimeoutException
+    )
 
 # from .file_csv import get_cred
 

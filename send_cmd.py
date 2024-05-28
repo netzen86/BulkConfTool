@@ -1,16 +1,19 @@
 import logging
 import os
-import sys
+# import sys
 from concurrent.futures import ThreadPoolExecutor as Tpe
 from datetime import datetime
 from itertools import repeat
 from file_csv import get_cred
 from paramiko import ssh_exception
 
-sys.path.append("./netmiko/")
+# sys.path.append("./netmiko/")
 
-from netmiko import (ConnectHandler, NetmikoAuthenticationException,
-                     NetmikoTimeoutException)
+from netmiko import (
+    ConnectHandler,
+    NetmikoAuthenticationException,
+    NetmikoTimeoutException
+    )
 
 logging.getLogger("paramiko").setLevel(logging.WARNING)
 
