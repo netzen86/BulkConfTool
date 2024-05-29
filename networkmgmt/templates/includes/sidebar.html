@@ -9,6 +9,13 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{% url 'backupcfg:backup_cfg' %}"
+           class="nav-link {% if view_name  == 'backupcfg:backup_cfg' %}active{% endif %}">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#database-down"></use></svg>
+            Резервное копирование конфигураций АСО
+        </a>
+      </li>      
+      <li class="nav-item">
         <a href="{% url 'bulksendcfg:bulk_send_cmd' %}"
            class="nav-link {% if view_name  == 'bulksendcfg:bulk_send_cmd' %}active{% endif %}">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>

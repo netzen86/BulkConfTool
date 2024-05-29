@@ -1,0 +1,32 @@
+{% extends "includes/form_base.html" %}
+
+{% block title %}
+  Настройка группы устройств
+{% endblock %}
+
+{% block card_header %}
+  Отправка комнд на устройства
+{% endblock %}
+
+{% block form_body %}
+  <form onsubmit="openLoader()" method="post"
+      {% if action_url %}
+        action="{% url 'action_url' %}"
+      {% endif %}
+  >
+{% endblock %}
+
+{% block button_name %}
+  Отправить команды
+{% endblock %}
+
+{% block messages %}
+  <br>
+  <div class="card">
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+  </div>
+{% endblock %}

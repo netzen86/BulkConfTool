@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'debug_toolbar',
+    'backupcfg.apps.BackupcfgConfig',
     'inventory.apps.InventoryConfig',
     'bulksendcfg.apps.BulksendcfgConfig',
     'swportmgmt.apps.SwportmgmtConfig'
