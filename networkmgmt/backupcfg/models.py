@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
+class StartTime(models.Model):
+    date = models.DateField(max_length=30)
+    time = models.TimeField(max_length=30)
