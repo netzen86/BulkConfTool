@@ -6,11 +6,13 @@ class BackUpForm(forms.ModelForm):
 
     class Meta():
         model = StartTime
-        fields = ('date', 'time')
-
+        fields = ('time', 'days')
         widgets = {
-            'date': forms.SelectDateWidget(
-                 empty_label=("Choose Year", "Choose Month", "Choose Day"),
-            ),
             'time': forms.TimeInput(attrs={'type': 'time'}),
+            'days': forms.CheckboxSelectMultiple,
         }
+        # widgets = {
+        #     'date': forms.SelectDateWidget(
+        #          empty_label=("Choose Year", "Choose Month", "Choose Day"),
+        #     ),
+        #     'time': forms.TimeInput(attrs={'type': 'time'}),
